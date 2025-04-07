@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_grocery_shop_app/Model/cart_model.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../components/grocery_item_tile.dart';
 
@@ -27,33 +29,50 @@ class HomePage extends StatelessWidget {
                 style: GoogleFonts.notoSerif(
                   fontSize: 36,
                   fontWeight:FontWeight.bold,
-
+        
                 ),),
               ),
               const SizedBox(height: 24),
               // divider
               const  Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                padding: EdgeInsets.symmetric(horizontal: 24.0),
                 child: Divider(
                   thickness: 4,
                 ),
               ),
-
+        
               const SizedBox(height: 24),
-
+        
         
               // fresh item + grid
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: Text('fresh item',style: TextStyle(fontSize: 16),),
               ),
+        
+              Expanded(
+                child: Consumer<cartModel>(
+                    builder: (context,value,child){
 
-              Expanded(child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-                  itemBuilder: (context,index){
-                    return GroceryItemTile();
-                  }
-              ))
+                      return GridView.builder(
+                        itemCount: value.shopItems.length,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 1/1.3,
+                        ),
+                        itemBuilder: (context,index){
+                          return GroceryItemTile(
+                            itemName: value.shopItems[index][0],
+                            itemPrice: value.shopItems[index][1],
+                            imagePath: value.shopItems[index][2],
+                            color: value.shopItems[index][3],
+
+                          );
+                        },
+                      );
+                    }
+                ),
+                  )
             ],
         ),
       )

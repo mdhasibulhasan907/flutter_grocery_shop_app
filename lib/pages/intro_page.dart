@@ -34,6 +34,7 @@ class IntroPage extends StatelessWidget {
 
 
         const Spacer(),
+
         //get started button
         GestureDetector(
           onTap: ()=> Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
@@ -53,7 +54,7 @@ class IntroPage extends StatelessWidget {
           ),
         ),
 
-        const Spacer(),
+        //const Spacer(),
 
 
       ],),
